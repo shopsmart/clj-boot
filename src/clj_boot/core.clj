@@ -4,6 +4,8 @@
             [boot.core :refer :all]
             [boot.util :refer :all]
             [boot.task.built-in :refer :all]
+            [clj-boot.docs :as docs]
+            [clj-boot.string :refer [delimeted-words]]
 
             [codox.boot :refer [codox]]
             [io.perun :refer [markdown render]]
@@ -42,6 +44,29 @@
      (speak)
      (build-jar)
      (push-snapshot)))
+
+
+(deftask cmd
+  "Run a shell command"
+  [r run COMMAND str "The shell command to run."]
+  (let [args (delimeted-words run)]
+    (with-pre-wrap fileset
+      (pprint `(apply dosh ~args))
+      (apply dosh args)
+      fileset)))
+
+
+(deftask release-docs
+  "Push updated documentation to gh-pages.  See https://gist.github.com/cobyism/4730490"
+  [v version VERSION str "The current project version"]
+  (comp (markdown)
+     (render :renderer 'clj-boot.docs/renderer)
+     (codox)
+     (target)
+     #_(cmd :run (str "git add site/codox/" version))
+     #_(cmd :run (str "git stage site/index.html" version))
+     #_(cmd :run (str "git commit -a -m 'Added documentation for version " version "'"))
+     #_(cmd :run "git subtree push --prefix site origin gh-pages")))
 
 
 (deftask release-local
@@ -84,6 +109,7 @@ envars."
   (bootlaces! version)
 
   (task-options!
+   release-docs {:version version}
 
    nightlight {:port nightlight-port}
 
