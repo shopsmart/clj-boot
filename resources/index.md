@@ -1,6 +1,6 @@
 ---
 name: clj-boot
-description: A "batteries included" build for Clojure based on Boot.
+description: "Batteries included" Clojure builds based on Boot.
 ---
 ## Benefits
 
@@ -24,10 +24,14 @@ View your version's documentation for detailed usage instructions.
 * Version [0.1.5](codox/0.1.5/index.html)
 
 
-## Known tech debt / tasks
+## Future
 
-* Register a Markdown plugin to generate the documentation version list
-* Copy the generated documentation out of target, into someplace else ("documentation?") where the main page overwrites the previous main page and the new version's documentation is merged with the set of prior versions' documentation
-* Enable push to gh_pages from the publish tasks
+* Automatically publish documentation
+   * Register a Markdown plugin to generate the documentation version list
+   * Copy the generated documentation out of target, into someplace else ("documentation?") where the main page overwrites the previous main page and the new version's documentation is merged with the set of prior versions' documentation
+   * Enable push to gh_pages from the publish tasks for project-type :open-source; push docs to S3 for project-type :private
 * Document how to set up gpg, what to put inside bootx
 * "Getting Started" document covering the vars at the top of build.boot and the ```(set-task-options!)``` command
+* ```boot new``` template for clj-boot projects
+* Generate OSGi metadata / support OSGi runtime
+* Deploy somewhere other than Clojars for :private projects
