@@ -7,7 +7,6 @@
 
             [codox.boot :refer [codox]]
             [io.perun :refer [markdown render]]
-            [nightlight.boot :refer [nightlight]]
             [samestep.boot-refresh :refer [refresh]]
             [adzerk.boot-test :refer [test]]
             [adzerk.bootlaces :refer :all]
@@ -15,11 +14,21 @@
             [adzerk.boot-jar2bin :refer :all]))
 
 
+(def project-types #{:open-source :private})
+
+(def project-type (atom :private))
+
+(defn assert-project-type
+  "Fails the build if the current project is not of the specified type."
+  [type]
+  (if-not (= type @project-type)
+    (fail (str "This project is of type " @project-type " but must be of type " type " to run this task.\n  Supported project types: " project-types))))
+
+
 (deftask dev
   "Interactively dev/test/document"
   []
-  (comp (nightlight)
-     (repl)
+  (comp (repl)
      (watch)
      (refresh)
      (test)
@@ -52,10 +61,14 @@
      (build-jar)))
 
 
-(deftask release-clojars
-  "Release a Jar to Clojars.  Depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GPG_PASS,
-envars."
+(deftask release
+  "Release a Jar.  If project-type is :open-source, pushes to Clojars.  If project-type is :private,
+pushes to a configured repository.  If project-type is :private and no respository is configured,
+aborts.
+
+For Clojars, depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GPG_PASS, envars."
   []
+  (assert-project-type :open-source)
   (comp (release-local)
      (push-release)))
 
@@ -78,10 +91,11 @@ envars."
 
 
 (defn set-task-options!
-  "Set "
-  [project prj-name description version scm-url nightlight-port]
+  "Set default options for standard tasks."
+  [project project-name openness description version scm-url]
 
   (bootlaces! version)
+  (reset! project-type openness)
 
   (task-options!
 
@@ -98,7 +112,7 @@ envars."
         :version     version
         :scm         {:url scm-url}}
 
-   codox {:name prj-name
+   codox {:name project-name
           :description description
           :version     version
           :metadata    {:doc/format :markdown}
