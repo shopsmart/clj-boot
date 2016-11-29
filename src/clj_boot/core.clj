@@ -47,6 +47,7 @@
 (deftask snapshot
   "Build and release a snapshot."
   []
+  (assert-project-type :open-source)
   (comp (test)
      (speak)
      (build-jar)
