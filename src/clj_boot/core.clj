@@ -100,8 +100,6 @@ For Clojars, depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GP
 
   (task-options!
 
-   nightlight {:port nightlight-port}
-
    push {:repo "deploy-clojars"
          :gpg-sign true
          :ensure-release true

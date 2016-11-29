@@ -34,7 +34,6 @@
                           [boot/worker            "2.6.0"]])
 
 
-(require '[nightlight.boot :refer [nightlight]])
 (require '[samestep.boot-refresh :refer [refresh]])
 (require '[adzerk.boot-test :refer [test]])
 (require '[adzerk.bootlaces :refer :all])
