@@ -1,6 +1,6 @@
 (def project  'bradsdeals/clj-boot)
 (def project-name "clj-boot")
-(def project-type :open-source)
+(def project-openness :open-source)
 
 (def version  "0.1.5")
 (def description "Standard Brad's Deals boot build tasks")
@@ -43,4 +43,4 @@
 (require '[io.perun :refer :all])
 (require '[clj-boot.core :refer :all])
 
-(set-task-options! project project-name project-type description version scm-url)
+(set-task-options! project project-name project-openness description version scm-url)

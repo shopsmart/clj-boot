@@ -16,13 +16,22 @@
 
 (def project-types #{:open-source :private})
 
-(def project-type (atom :private))
+(def project-type (ref :private))
 
-(defn assert-project-type
-  "Fails the build if the current project is not of the specified type."
-  [type]
-  (if-not (= type @project-type)
-    (fail (str "This project is of type " @project-type " but must be of type " type " to run this task.\n  Supported project types: " project-types))))
+
+(deftask assert-project-type
+  "Fails the build if the current project is not a legal type.  Legal types are members of the
+project-types set.  In addition, may test that the current project is exactly a single type via
+the 'expect' parameter."
+  [e expect PROJECT-TYPE kw "The expected project type"]
+  (if-not (project-types @project-type)
+    (throw (ex-info (str "This project is " @project-type " but must be one of " project-types)
+                    {})))
+
+  (if-not (= expect @project-type)
+    (throw (ex-info (str "This project is " @project-type " but must be " expect
+                         ".\nto perform this operation.\n  Supported project types: " project-types)
+                    {}))))
 
 
 (deftask dev
@@ -47,8 +56,8 @@
 (deftask snapshot
   "Build and release a snapshot."
   []
-  (assert-project-type :open-source)
-  (comp (test)
+  (comp (assert-project-type :expect :open-source)
+     (test)
      (speak)
      (build-jar)
      (push-snapshot)))
@@ -69,8 +78,8 @@ aborts.
 
 For Clojars, depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GPG_PASS, envars."
   []
-  (assert-project-type :open-source)
-  (comp (release-local)
+  (comp (assert-project-type :expect :open-source)
+     (release-local)
      (push-release)))
 
 
@@ -96,7 +105,7 @@ For Clojars, depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GP
   [project project-name openness description version scm-url]
 
   (bootlaces! version)
-  (reset! project-type openness)
+  (dosync (ref-set project-type openness))
 
   (task-options!
 
