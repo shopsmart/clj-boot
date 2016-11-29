@@ -17,10 +17,9 @@
 
 
 (deftask dev
-  "Interactively dev/test/document"
+  "Interactively dev/test"
   []
-  (comp (nightlight)
-     (repl)
+  (comp (repl)
      (watch)
      (refresh)
      (test)
