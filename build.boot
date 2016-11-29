@@ -2,9 +2,8 @@
 (def prj-name "clj-boot")
 
 (def version  "0.1.5")
-(def description "Standard Brad's Deals boot build tasks")
+(def description "A standard project configuration based on Boot making JAR projects easier to create and maintain.")
 (def scm-url "https://github.com/shopsmart/clj-boot")
-(def nightlight-port 12000)
 
 
 (set-env! :resource-paths #{"resources"}
