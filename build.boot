@@ -2,7 +2,7 @@
 (def project-name "clj-boot")
 (def project-openness :open-source)
 
-(def version  "0.1.5")
+(def version  "0.1.6")
 (def description "Standard Brad's Deals boot build tasks")
 (def scm-url "https://github.com/shopsmart/clj-boot")
 

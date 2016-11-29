@@ -24,14 +24,16 @@
 project-types set.  In addition, may test that the current project is exactly a single type via
 the 'expect' parameter."
   [e expect PROJECT-TYPE kw "The expected project type"]
-  (if-not (project-types @project-type)
-    (throw (ex-info (str "This project is " @project-type " but must be one of " project-types)
-                    {})))
-
-  (if-not (= expect @project-type)
-    (throw (ex-info (str "This project is " @project-type " but must be " expect
-                         ".\nto perform this operation.\n  Supported project types: " project-types)
-                    {}))))
+  (fn middleware [next-handler]
+    (fn handler [fileset]
+      (if-not (project-types @project-type)
+        (throw (ex-info (str "This project is " @project-type " but must be one of " project-types)
+                        {})))
+      (if-not (= expect @project-type)
+        (throw (ex-info (str "This project is " @project-type " but must be " expect
+                             ".\nto perform this operation.\n  Supported project types: " project-types)
+                        {})))
+      (next-handler fileset))))
 
 
 (deftask dev
