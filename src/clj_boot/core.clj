@@ -9,7 +9,6 @@
 
             [codox.boot :refer [codox]]
             [io.perun :refer [markdown render]]
-            [nightlight.boot :refer [nightlight]]
             [samestep.boot-refresh :refer [refresh]]
             [adzerk.boot-test :refer [test]]
             [adzerk.bootlaces :refer :all]
@@ -104,14 +103,12 @@ envars."
 
 (defn set-task-options!
   "Set "
-  [project prj-name description version scm-url nightlight-port]
+  [project prj-name description version scm-url]
 
   (bootlaces! version)
 
   (task-options!
    release-docs {:version version}
-
-   nightlight {:port nightlight-port}
 
    push {:repo "deploy-clojars"
          :gpg-sign true
