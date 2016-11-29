@@ -1,6 +1,6 @@
 (def project  'bradsdeals/clj-boot)
 (def project-name "clj-boot")
-(def project-type :open-source)      ;; One of #{:open-source :private}
+(def project-type :open-source)
 
 (def version  "0.1.5")
 (def description "Standard Brad's Deals boot build tasks")
