@@ -1,14 +1,17 @@
 (def project  'bradsdeals/clj-boot)
+(def version  "0.1.8")
 (def project-name "clj-boot")
 (def project-openness :open-source)
 
-(def version  "0.1.6")
 (def description "Standard Brad's Deals boot build tasks")
 (def scm-url "https://github.com/shopsmart/clj-boot")
 
+(def test-sources "test")
+(def test-resources nil)
+
 
 (set-env! :resource-paths #{"resources"}
-          :source-paths   #{"src" "test"}
+          :source-paths   #{"src"}
 
           :repositories #(conj % ["clojars-push" {:url "https://clojars.org/repo/"
                                                   :username (System/getenv "CLOJARS_USER")
@@ -43,4 +46,4 @@
 (require '[io.perun :refer :all])
 (require '[clj-boot.core :refer :all])
 
-(set-task-options! project project-name project-openness description version scm-url)
+(set-task-options! project project-name project-openness description version scm-url test-sources test-resources)
