@@ -45,14 +45,18 @@ after running tests."
         test-handler (test-middleware identity)]
     (fn middleware [next-handler]
       (fn handler [fileset]
-        (let [env (get-env)]
+        (let [baseline-sources (get-env :source-paths)
+              baseline-resources (get-env :resource-paths)]
+
           (when sources
             (set-env! :source-paths #(conj % sources)))
           (when resources
             (set-env! :resource-paths #(conj % resources)))
-          (test-handler fileset)
-          (set-env! env)
-          (next-handler fileset))))))
+
+          (let [fileset' (test-handler fileset)]
+            (set-env! :source-paths baseline-sources
+                      :resource-paths baseline-resources)
+            (next-handler fileset')))))))
 
 
 (deftask dev
@@ -123,21 +127,28 @@ For Clojars, depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GP
 
 (defn set-task-options!
   "Set default options for standard tasks."
-  [project project-name openness description version scm-url test-sources test-resources]
+  [{:keys [project project-name project-openness description version scm-url test-sources test-resources push-repository]}]
 
   (bootlaces! version)
-  (dosync (ref-set project-type openness))
+  (dosync (ref-set project-type project-openness))
+
+  (set-env! :repositories #(conj % ["clojars-push" {:url "https://clojars.org/repo/"
+                                                    :username (System/getenv "CLOJARS_USER")
+                                                    :password (System/getenv "CLOJARS_PASS")}]))
 
   (task-options!
 
    test-with-settings {:sources test-sources
                        :resources test-resources}
 
-   push {:repo "deploy-clojars"
-         :gpg-sign true
-         :ensure-release true
-         :gpg-user-id (System/getenv "CLOJARS_GPG_USER")
-         :gpg-passphrase (System/getenv "CLOJARS_GPG_PASS")}
+   push (cond
+          push-repository                   push-repository
+          (= :open-source project-openness) {:repo "deploy-clojars"
+                                             :gpg-sign true
+                                             :ensure-release true
+                                             :gpg-user-id (System/getenv "CLOJARS_GPG_USER")
+                                             :gpg-passphrase (System/getenv "CLOJARS_GPG_PASS")}
+          :else                             {})
 
    pom {:project     project
         :description description
