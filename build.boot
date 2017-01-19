@@ -1,6 +1,6 @@
 (def task-options
   {:project  'bradsdeals/clj-boot
-   :version  "0.2.0"
+   :version  "0.2.1"
    :project-name "clj-boot"
    :project-openness :open-source
    :description "A standard project configuration based on Boot making JAR projects easier to create and maintain."
@@ -23,6 +23,7 @@
                           [samestep/boot-refresh  "0.1.0"]
                           [seancorfield/boot-new  "0.4.7"]
                           [tolitius/boot-check    "0.1.3"]
+                          [cloverage              "1.0.9"]
 
                           [adzerk/bootlaces       "0.1.13"]
                           [adzerk/boot-test       "1.1.2"]

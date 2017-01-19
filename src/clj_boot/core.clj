@@ -5,6 +5,7 @@
             [boot.util :refer :all]
             [boot.task.built-in :refer :all]
             [clj-boot.docs :as docs]
+            [clj-boot.boot-cloverage :rever [cloverage]]
             [clj-boot.string :refer [delimeted-words]]
 
             [codox.boot :refer [codox]]
