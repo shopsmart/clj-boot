@@ -114,10 +114,14 @@ after running tests."
 
 (deftask release-local
   "Build a jar and release it to the local repo."
-=======
+  []
+  (comp (test)
+        (speak)
+        (build-jar)))
+
+
 (deftask snapshot
   "Build and release a snapshot."
->>>>>>> master
   []
   (comp (assert-project-type :expect :open-source)
      (release-local)
