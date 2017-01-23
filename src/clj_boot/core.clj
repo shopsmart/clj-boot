@@ -41,7 +41,7 @@ the 'expect' parameter."
 
 (deftask test-with-settings
   "Run (test) with the specified settings added to the environment.  Restores the original environment
-after running tests."
+  after running tests."
   [s sources PATH str "The directory where test source code is located."
    r resources PATH str "The directory where testing resources are located."]
   (let [test-middleware (test)
