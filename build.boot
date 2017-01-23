@@ -21,7 +21,7 @@
                           [hiccup                 "1.0.5"]
                           [org.clojure/test.check "0.9.0"]
                           [samestep/boot-refresh  "0.1.0"]
-                          [seancorfield/boot-new  "0.4.7"]
+                          [boot/new               "0.5.0"]
                           [tolitius/boot-check    "0.1.3"]
                           [cloverage              "1.0.9"]
 
