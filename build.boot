@@ -1,11 +1,11 @@
 (def task-options
-  {:project  'bradsdeals/clj-boot
-   :version  "0.1.10"
+  {:project  'coconutpalm/clj-boot
+   :version  "0.1.11"
    :project-name "clj-boot"
    :project-openness :open-source
 
-   :description "Standard Brad's Deals boot build tasks"
-   :scm-url "https://github.com/shopsmart/clj-boot"
+   :description "Standard boot build tasks"
+   :scm-url "https://github.com/coconutpalm/clj-boot"
 
    :test-sources nil
    :test-resources nil})
