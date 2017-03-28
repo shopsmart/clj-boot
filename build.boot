@@ -1,6 +1,6 @@
 (def task-options
   {:project  'bradsdeals/clj-boot
-   :version  "0.1.9"
+   :version  "0.1.10"
    :project-name "clj-boot"
    :project-openness :open-source
 
@@ -23,15 +23,15 @@
                           [hiccup                 "1.0.5"]
                           [org.clojure/test.check "0.9.0"]
                           [samestep/boot-refresh  "0.1.0"]
-                          [seancorfield/boot-new  "0.4.7"]
-                          [tolitius/boot-check    "0.1.3"]
+                          [boot/new               "0.5.1"]
+                          [tolitius/boot-check    "0.1.4"]
 
                           [adzerk/bootlaces       "0.1.13"]
-                          [adzerk/boot-test       "1.1.2"]
+                          [adzerk/boot-test       "1.2.0"]
                           [adzerk/boot-jar2bin    "1.1.0"]
-                          [boot/pod               "2.6.0"]
-                          [boot/aether            "2.6.0"]
-                          [boot/worker            "2.6.0"]])
+                          [boot/pod               "2.7.1"] ;; FIXME: These need to be fixed to boot.version
+                          [boot/aether            "2.7.1"]
+                          [boot/worker            "2.7.1"]])
 
 
 (require '[samestep.boot-refresh :refer [refresh]])

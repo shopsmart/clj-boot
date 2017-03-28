@@ -62,11 +62,11 @@ after running tests."
 (deftask dev
   "Interactively dev/test/document"
   []
-  (comp (repl)
-     (watch)
-     (refresh)
-     (test-with-settings)
-     (speak)))
+  (comp (watch)
+        (refresh)
+        (repl)
+        (test)
+        (speak)))
 
 
 (deftask lint
