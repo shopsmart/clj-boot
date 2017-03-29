@@ -2,7 +2,7 @@
 
 Boot tasks simplifying development and deployment.
 
-[![Clojars Project](https://img.shields.io/clojars/v/bradsdeals/clj-boot.svg)](https://clojars.org/bradsdeals/clj-boot)
+[![Clojars Project](https://img.shields.io/clojars/v/coconutpalm/clj-boot.svg)](https://clojars.org/coconutpalm/clj-boot)
 
 This is a very early access project that is changing rapidly.
 
