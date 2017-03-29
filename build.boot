@@ -1,10 +1,10 @@
 (def task-options
   {:project  'coconutpalm/clj-boot
-   :version  "0.1.11"
+   :version  "0.2.2"
    :project-name "clj-boot"
    :project-openness :open-source
 
-   :description "Standard boot build tasks"
+   :description "A standard project configuration based on Boot making JAR projects easier to create and maintain."
    :scm-url "https://github.com/coconutpalm/clj-boot"
 
    :test-sources nil
@@ -17,14 +17,16 @@
           :dependencies '[[org.clojure/clojure   "1.8.0"]
                           [clojure-future-spec   "1.9.0-alpha14"]
 
-                          ; Boot tasks
+                          ;; Boot tasks
                           [boot-codox             "0.10.2"]
                           [perun                  "0.3.0"]
                           [hiccup                 "1.0.5"]
                           [org.clojure/test.check "0.9.0"]
                           [samestep/boot-refresh  "0.1.0"]
+
                           [boot/new               "0.5.1"]
                           [tolitius/boot-check    "0.1.4"]
+                          [cloverage              "1.0.9"]
 
                           [adzerk/bootlaces       "0.1.13"]
                           [adzerk/boot-test       "1.2.0"]
@@ -42,5 +44,6 @@
 (require '[adzerk.boot-jar2bin :refer :all])
 (require '[io.perun :refer :all])
 (require '[clj-boot.core :refer :all])
+
 
 (set-task-options! task-options)
