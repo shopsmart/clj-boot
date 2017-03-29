@@ -12,7 +12,7 @@ e.g.:
 ```bash
 #!/usr/bin/env bash
 
-export BOOT_JVM_OPTIONS='-DCONFIG-PROD=/tmp/_test-config-prod.edn -client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xverify:none -Xmx2g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow'
+export BOOT_JVM_OPTIONS='-client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xverify:none -Xmx2g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow'
 
 export CLOJARS_USER='clojars-username'
 export CLOJARS_PASS='clojars-password'
