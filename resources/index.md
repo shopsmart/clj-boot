@@ -1,6 +1,6 @@
 ---
 name: clj-boot
-description: "Batteries included" Clojure builds based on Boot.
+description: Batteries included Clojure builds based on Boot.
 ---
 ## Benefits
 
@@ -17,11 +17,11 @@ clj-boot is built and deployed using itself.
 
 Add the latest version to your build.boot dependencies:
 
-* [![Clojars Project](https://img.shields.io/clojars/v/bradsdeals/clj-boot.svg)](https://clojars.org/bradsdeals/clj-boot)
+* [![Clojars Project](https://img.shields.io/clojars/v/coconutpalm/clj-boot.svg)](https://clojars.org/coconutpalm/clj-boot)
 
 View your version's documentation for detailed usage instructions.
 
-* Version [0.1.5](codox/0.1.5/index.html)
+* Version [0.2.2](codox/0.2.2/index.html)
 
 
 ## Future
