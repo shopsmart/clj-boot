@@ -2,7 +2,7 @@
 
 Boot tasks simplifying development and deployment.
 
-[![Clojars Project](https://img.shields.io/clojars/v/bradsdeals/clj-boot.svg)](https://clojars.org/bradsdeals/clj-boot)
+[![Clojars Project](https://img.shields.io/clojars/v/coconutpalm/clj-boot.svg)](https://clojars.org/coconutpalm/clj-boot)
 
 This is a very early access project that is changing rapidly.
 
@@ -12,7 +12,7 @@ e.g.:
 ```bash
 #!/usr/bin/env bash
 
-export BOOT_JVM_OPTIONS='-DCONFIG-PROD=/tmp/_test-config-prod.edn -client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xverify:none -Xmx2g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow'
+export BOOT_JVM_OPTIONS='-client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xverify:none -Xmx2g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow'
 
 export CLOJARS_USER='clojars-username'
 export CLOJARS_PASS='clojars-password'

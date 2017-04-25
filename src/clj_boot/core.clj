@@ -11,6 +11,8 @@
             [codox.boot :refer [codox]]
             [io.perun :refer [markdown render]]
             [samestep.boot-refresh :refer [refresh]]
+            [nightlight.boot :refer [nightlight]]
+
             [adzerk.boot-test :refer [test]]
             [adzerk.bootlaces :refer :all]
             [tolitius.boot-check :as check]
@@ -66,10 +68,11 @@ the 'expect' parameter."
   "Interactively dev/test"
   []
   (comp (watch)
-        (refresh)
-        (repl)
-        (test)
-        (speak)))
+     (refresh)
+     (repl :server true)
+     (nightlight :port 0)
+     (test)
+     (notify :audible true :visual true)))
 
 
 (deftask lint
@@ -85,7 +88,7 @@ the 'expect' parameter."
   "Build a jar and release it to the local repo."
   []
   (comp (test-with-settings)
-     (speak)
+     (notify :audible true :visual true)
      (build-jar)
      (target)))
 
@@ -145,7 +148,7 @@ For Clojars, depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GP
   "Run tests, and build an uberjar."
   []
   (comp (test-with-settings)
-     (speak)
+     (notify :audible true :visual true)
      (pom)
      (uber)
      (jar)

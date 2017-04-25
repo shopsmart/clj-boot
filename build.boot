@@ -23,6 +23,7 @@
                           [hiccup                 "1.0.5"]
                           [org.clojure/test.check "0.9.0"]
                           [samestep/boot-refresh  "0.1.0"]
+                          [nightlight             "LATEST"]
 
                           [boot/new               "0.5.1"]
                           [tolitius/boot-check    "0.1.4"]
