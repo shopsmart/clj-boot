@@ -1,6 +1,6 @@
 (def task-options
   {:project  'coconutpalm/clj-boot
-   :version  "0.2.2"
+   :version  "0.2.3"
    :project-name "clj-boot"
    :project-openness :open-source
 
