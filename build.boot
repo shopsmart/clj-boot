@@ -1,6 +1,6 @@
 (def task-options
   {:project  'coconutpalm/clj-boot
-   :version  "0.2.3"
+   :version  "0.2.4"
    :project-name "clj-boot"
    :project-openness :open-source
 
@@ -12,10 +12,12 @@
 
 
 (set-env! :resource-paths #{"resources"}
-          :source-paths   #{"src"}
+          :source-paths   #{"src" "test"}
 
-          :dependencies '[[org.clojure/clojure   "1.8.0"]
-                          [clojure-future-spec   "1.9.0-alpha14"]
+          :dependencies '[[org.clojure/clojure    "1.8.0"]
+                          [clojure-future-spec    "1.9.0-alpha16-1"]
+                          [metosin/spec-tools     "0.1.1"]
+                          [org.clojure/test.check "0.9.0"]
 
                           ;; Boot tasks
                           [boot-codox             "0.10.2"]
