@@ -4,10 +4,15 @@
             [boot.core :refer :all]
             [boot.util :refer :all]
             [boot.task.built-in :refer :all]
+            [clj-boot.docs :as docs]
+            [clj-boot.boot-cloverage :rever [cloverage]]
+            [clj-boot.string :refer [delimited-words]]
 
             [codox.boot :refer [codox]]
             [io.perun :refer [markdown render]]
             [samestep.boot-refresh :refer [refresh]]
+            [nightlight.boot :refer [nightlight]]
+
             [adzerk.boot-test :refer [test]]
             [adzerk.bootlaces :refer :all]
             [tolitius.boot-check :as check]
@@ -38,7 +43,7 @@ the 'expect' parameter."
 
 (deftask test-with-settings
   "Run (test) with the specified settings added to the environment.  Restores the original environment
-after running tests."
+  after running tests."
   [s sources PATH str "The directory where test source code is located."
    r resources PATH str "The directory where testing resources are located."]
   (let [test-middleware (test)
@@ -60,13 +65,14 @@ after running tests."
 
 
 (deftask dev
-  "Interactively dev/test/document"
+  "Interactively dev/test"
   []
   (comp (watch)
-        (refresh)
-        (repl)
-        (test)
-        (speak)))
+     (refresh)
+     (repl :server true)
+     (nightlight :port 0)
+     (test)
+     (notify :audible true :visual true)))
 
 
 (deftask lint
@@ -82,9 +88,40 @@ after running tests."
   "Build a jar and release it to the local repo."
   []
   (comp (test-with-settings)
-     (speak)
+     (notify :audible true :visual true)
      (build-jar)
      (target)))
+
+
+(deftask cmd
+  "Run a shell command"
+  [r run COMMAND str "The shell command to run."]
+  (let [args (delimited-words run)]
+    (with-pre-wrap fileset
+      (pprint `(apply dosh ~args))
+      (apply dosh args)
+      fileset)))
+
+
+(deftask release-docs
+  "Push updated documentation to gh-pages.  See https://gist.github.com/cobyism/4730490"
+  [v version VERSION str "The current project version"]
+  (comp (markdown)
+     (render :renderer 'clj-boot.docs/renderer)
+     (codox)
+     (target)
+     #_(cmd :run (str "git add site/codox/" version))
+     #_(cmd :run (str "git stage site/index.html" version))
+     #_(cmd :run (str "git commit -a -m 'Added documentation for version " version "'"))
+     #_(cmd :run "git subtree push --prefix site origin gh-pages")))
+
+
+(deftask release-local
+  "Build a jar and release it to the local repo."
+  []
+  (comp (test)
+        (speak)
+        (build-jar)))
 
 
 (deftask snapshot
@@ -111,7 +148,7 @@ For Clojars, depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GP
   "Run tests, and build an uberjar."
   []
   (comp (test-with-settings)
-     (speak)
+     (notify :audible true :visual true)
      (pom)
      (uber)
      (jar)
@@ -137,6 +174,7 @@ For Clojars, depends on CLOJARS_USER, CLOJARS_PASS, CLOJARS_GPG_USER, CLOJARS_GP
                                                     :password (System/getenv "CLOJARS_PASS")}]))
 
   (task-options!
+   release-docs {:version version}
 
    test-with-settings {:sources test-sources
                        :resources test-resources}
