@@ -6,7 +6,7 @@
             [boot.task.built-in :refer :all]
             [clj-boot.docs :as docs]
             [clj-boot.boot-cloverage :rever [cloverage]]
-            [clj-boot.string :refer [delimeted-words]]
+            [clj-boot.string :refer [delimited-words]]
 
             [codox.boot :refer [codox]]
             [io.perun :refer [markdown render]]
@@ -96,7 +96,7 @@ the 'expect' parameter."
 (deftask cmd
   "Run a shell command"
   [r run COMMAND str "The shell command to run."]
-  (let [args (delimeted-words run)]
+  (let [args (delimited-words run)]
     (with-pre-wrap fileset
       (pprint `(apply dosh ~args))
       (apply dosh args)
