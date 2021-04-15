@@ -1,4 +1,4 @@
-# clj-boot
+# **DEPRECATED** clj-boot
 
 Boot tasks simplifying development and deployment.
 
